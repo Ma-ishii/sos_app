@@ -11,6 +11,11 @@ Rails.application.routes.draw do
   get '/signup',  to: 'users#new'
   resources :users
 
+  # SessionControllerアクションへのroutes
+  get    '/login',   to: 'sessions#new'
+  post   '/login',   to: 'sessions#create'
+  delete '/logout',  to: 'sessions#destroy'
+
   # ユーザー登録のルーティングにPOSTリクエストを追加する
   post '/signup',  to: 'users#create'
 end

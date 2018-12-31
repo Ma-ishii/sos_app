@@ -17,9 +17,18 @@ class User < ApplicationRecord
                                 # メールアドレスの大小区別しない一意性の検証
                     uniqueness: { case_sensitive: false }
 
+
   # paswordに対してのバリデーション　presence(存在性)、length(文字数制限)
   has_secure_password
 
   validates :password, presence: true, length: { minimum: 6 }
+  
+
+  # 渡された文字列のハッシュ値を返す
+  def User.digest(string)
+    cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST :
+                                                  BCrypt::Engine.cost
+    BCrypt::Password.create(string, cost: cost)
+  end
 
 end
