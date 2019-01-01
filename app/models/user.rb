@@ -21,8 +21,7 @@ class User < ApplicationRecord
 
   # paswordに対してのバリデーション　presence(存在性)、length(文字数制限)
   has_secure_password
-
-  validates :password, presence: true, length: { minimum: 6 }
+  validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
 
   class << self
 
