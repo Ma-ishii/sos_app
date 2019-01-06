@@ -1,6 +1,15 @@
 class User < ApplicationRecord
   attr_accessor :remember_token
 
+  # Userモデルへ関連付け追加
+  has_many :place
+  # User削除とともにPlaceも破棄する設定
+  has_many :place, dependent: :destroy
+
+
+
+
+
   # email属性を小文字に変換
   before_save { self.email = email.downcase }
 
@@ -53,6 +62,11 @@ class User < ApplicationRecord
   # ユーザーのログイン情報を破棄する
   def forget
     update_attribute(:remember_digest, nil)
+  end
+
+
+  def feed
+    Place.where("user_id = ?", id)
   end
 
 

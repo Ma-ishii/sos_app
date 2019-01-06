@@ -16,6 +16,9 @@ Rails.application.routes.draw do
   post   '/login',   to: 'sessions#create'
   delete '/logout',  to: 'sessions#destroy'
 
+  # Placeリソースのルーティング
+  resources :places, only: [:index, :show, :create, :destroy]
+
   # ユーザー登録のルーティングにPOSTリクエストを追加する
   post '/signup',  to: 'users#create'
 end
