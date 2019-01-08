@@ -19,6 +19,8 @@ Rails.application.routes.draw do
   # Placeリソースのルーティング
   resources :places, only: [:index, :show, :create, :destroy]
 
+  get '/unity', to: 'static_pages#unity'
+
   # ユーザー登録のルーティングにPOSTリクエストを追加する
   post '/signup',  to: 'users#create'
 end

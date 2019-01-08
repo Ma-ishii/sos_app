@@ -4,6 +4,10 @@ class Place < ApplicationRecord
   default_scope -> { order(created_at: :desc) }
 
 
+  geocoded_by :name
+  after_validation :geocode
+
+
 
 
 
@@ -19,7 +23,7 @@ class Place < ApplicationRecord
 
 
 
-  
+
   private
 
     # アップロードされた画像のサイズをバリデーションする
