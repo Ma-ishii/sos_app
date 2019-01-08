@@ -30,4 +30,9 @@ class StaticPagesController < ApplicationController
 
   def contact
   end
+
+
+  def unity
+    @places = Place.all
+  end
 end

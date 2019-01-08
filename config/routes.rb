@@ -17,7 +17,7 @@ Rails.application.routes.draw do
   delete '/logout',  to: 'sessions#destroy'
 
   # Placeリソースのルーティング
-  resources :places, only: [:index, :show, :create, :destroy]
+  resources :places, only: [:index, :show, :create, :destroy, :edit, :update]
 
   get '/unity', to: 'static_pages#unity'
 

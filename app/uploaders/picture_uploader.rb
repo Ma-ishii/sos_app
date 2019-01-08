@@ -1,7 +1,7 @@
 class PictureUploader < CarrierWave::Uploader::Base
   # Include RMagick or MiniMagick support:
   # include CarrierWave::RMagick
-  # include CarrierWave::MiniMagick
+  include CarrierWave::MiniMagick
 
   # Choose what kind of storage to use for this uploader:
   storage :file
@@ -12,14 +12,6 @@ class PictureUploader < CarrierWave::Uploader::Base
   def store_dir
     "uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
   end
-
-  # アップロード可能な拡張子のリスト
-  def extension_whitelist
-    %w(jpg jpeg gif png)
-  end
-
-  include CarrierWave::MiniMagick
-  process resize_to_limit: [400, 400]
 
   # Provide a default URL as a default if there hasn't been a file uploaded:
   # def default_url(*args)
@@ -38,7 +30,7 @@ class PictureUploader < CarrierWave::Uploader::Base
 
   # Create different versions of your uploaded files:
   # version :thumb do
-  #   process resize_to_fit: [50, 50]
+  process resize_to_fit: [400, 400]
   # end
 
   # Add a white list of extensions which are allowed to be uploaded.
@@ -53,4 +45,9 @@ class PictureUploader < CarrierWave::Uploader::Base
   #   "something.jpg" if original_filename
   # end
 
+
+  # アップロード可能な拡張子のリスト
+  def extension_whitelist
+    %w(jpg jpeg gif png)
+  end
 end

@@ -13,26 +13,28 @@
       <!-- アップロードPicture -->
       <%= image_tag @place.picture.url if @place.picture? %>
     </span>
+  </li>
+
+  <!-- GoogleMapのView -->
+
+  <% if( @place.latitude && @place.longitude ) %>
+    <div id="map" style='width: 640px; height: 320px;'></div>
+    <script type="text/javascript">
+        handler = Gmaps.build('Google');
+        handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
+        markers = handler.addMarkers(<%=raw @hash.to_json %>);
+        handler.bounds.extendWith(markers);
+        handler.fitMapToBounds();
+        handler.getMap().setZoom(16);
+      });
+    </script>
+  <% end %>
     <!--戻るボタン-->
     <%= link_to "一覧へ戻る", redirect_before_url, class: "btn btn-sm btn-primary" %>
-
-    <!-- 編集ボタン -->
-    <% if current_user?(@place.user) %>
-      <%= link_to "編集", edit_place_path(@place), class: "btn btn-sm btn-primary" %>
-      <%= link_to "削除", @place, class: "btn btn-sm btn-primary", method: :delete, data: { confirm: "You sure?" } %>
-    <% end %>
-  </li>
 </ul>
 
-<% if( @place.latitude && @place.longitude ) %>
-  <div id="map" style='width: 640px; height: 320px;'></div>
-  <script type="text/javascript">
-    handler = Gmaps.build('Google');
-    handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
-      markers = handler.addMarkers(<%=raw @hash.to_json %>);
-      handler.bounds.extendWith(markers);
-      handler.fitMapToBounds();
-      handler.getMap().setZoom(16);
-    });
-  </script>
+<!-- 編集ボタン -->
+<% if current_user?(@place.user) %>
+  <%= link_to "編集", edit_place_path(@place), class: "btn btn-sm btn-primary" %>
+  <%= link_to "削除", @place, class: "btn btn-sm btn-primary", method: :delete, data: { confirm: "You sure?" } %>
 <% end %>
