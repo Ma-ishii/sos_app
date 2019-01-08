@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  protect_from_forgery :except => [:create]
   before_action :logged_in_user, only: [:index, :edit, :update, :destroy]
   before_action :correct_user,   only: [:edit, :update]
   before_action :admin_user,     only: :destroy
@@ -17,6 +18,7 @@ class UsersController < ApplicationController
   end
 
   def create
+    self.allow_forgery_protection = false
     @user = User.new(user_params)
     if @user.save
       log_in @user
